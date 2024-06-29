@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Ahome from './components/Ahome';
+import Fournisseur from './components/Fournisseur';
+import Groupefou from './components/Groupefou';
+import Mouvement from './components/Mouvement';
+import Article from './components/Article';
+import Navbar from './components/Navbar';
+import Reception from './components/Reception';
+import Expedition from './components/Expedition';
+import Login from './components/Login';
+import Choose from './components/Choose';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <NavbarWrapper />
+        <Routes>
+          <Route path='/' element={<Ahome />} />
+          <Route path='/Fournisseur' element={<Fournisseur />} />
+          <Route path='/Groupefou' element={<Groupefou />} />
+          <Route path='/Mouvement' element={<Mouvement />} />
+          <Route path='/Article' element={<Article />} />
+          <Route path='/Login' element={<Login />} />
+          <Route path='/Reception' element={<Reception />} />
+          <Route path='/Expedition' element={<Expedition />} />
+          <Route path='/Choose' element={<Choose />} />
+        </Routes>
+      </div>
+    </Router>
   );
+}
+
+function NavbarWrapper() {
+  const location = useLocation();
+  const hiddenPaths = ['/Reception', '/Expedition', '/Login' , '/Choose'];
+  const hideNavbar = hiddenPaths.includes(location.pathname);
+  return !hideNavbar && <Navbar />;
 }
 
 export default App;
